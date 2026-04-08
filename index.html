@@ -22,6 +22,7 @@ body{font-family:'Inter',system-ui,sans-serif;color:var(--text);background:var(-
 /* Layout */
 .container{max-width:720px;margin:0 auto;padding:0 24px}
 header{padding:0;border-bottom:1px solid var(--border)}
+.hero-img{width:100%;display:block;max-height:420px;object-fit:cover;object-position:center 30%}
 .hero-banner{background:linear-gradient(135deg,#0f172a 0%,#1e1b4b 35%,#1e3a5f 65%,#0f172a 100%);padding:64px 24px 56px;text-align:center;position:relative;overflow:hidden}
 .hero-banner::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse at 30% 50%,rgba(6,182,212,0.15) 0%,transparent 60%),radial-gradient(ellipse at 70% 50%,rgba(139,92,246,0.12) 0%,transparent 60%);pointer-events:none}
 .hero-banner::after{content:'';position:absolute;inset:0;background:url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='0.03'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");pointer-events:none}
@@ -127,10 +128,11 @@ footer{padding:40px 0;border-top:1px solid var(--border);text-align:center;color
 <body>
 
 <header>
+<img src="hero-banner.jpg" alt="Claude Code Mastery in 10 Days — The 80/20 Guide" class="hero-img">
 <div class="hero-banner">
 <div class="hero-title-wrap">
 <div class="hero-title-main"><span class="t-teal">Claude</span> <span class="t-white">Code Mastery</span><br><span class="t-white">in 10 Days —</span> <span class="t-orange">The 80/20</span> <span class="t-white">Guide</span></div>
-<p class="hero-subtitle">The guide to becoming a Claude Code power user. 30 min/day, 10 days. Built for PMs, designers, ops, and anyone in tech who isn't a developer.</p>
+<p class="hero-subtitle">The guide to becoming a Claude Code power user. 30 min/day, 10 days. Built for PMs, designers, ops, and anyone in tech.</p>
 <div class="hero-tags"><span class="hero-tag">30 min / day</span><span class="hero-tag">Non-developers</span><span class="hero-tag">Free course</span><span class="hero-tag">Hands-on project</span></div>
 </div>
 </div>
@@ -195,7 +197,21 @@ footer{padding:40px 0;border-top:1px solid var(--border);text-align:center;color
 <div class="day-title">The Mental Model: Claude Code is Not a Chatbot</div>
 
 <div class="concept-box">
-<p>Claude Code is an <em>autonomous agent</em> that lives in your terminal. It can read files, write files, run commands, search the web, and connect to apps. You give it a task; it figures out which tools to use.</p>
+<p>Claude Code is an <em>autonomous agent</em> that lives in your terminal (the text-based app on your computer — like a command line). It can read files, write files, run commands, search the web, and connect to apps. You give it a task; it figures out which tools to use.</p>
+</div>
+
+<div class="callout" style="border-color:var(--phase2);background:linear-gradient(135deg,#f0f9ff,#fff)">
+<h4 style="color:var(--phase2);margin-top:0">Which Claude am I using?</h4>
+<p>The Claude desktop app gives you access to <strong>three different modes</strong> — and they're not the same thing:</p>
+<table style="margin:12px 0 16px">
+<thead><tr><th>Mode</th><th>What it is</th><th>Best for</th></tr></thead>
+<tbody>
+<tr><td><strong>Claude Chat</strong></td><td>The classic AI conversation. Ask questions, get answers. No file access or tool use.</td><td>Quick questions, brainstorming, writing help</td></tr>
+<tr><td><strong>Claude Code</strong></td><td>An autonomous agent in your terminal. Reads/writes files, runs commands, connects to apps. This is what this guide teaches.</td><td>Automating real work across your computer and apps</td></tr>
+<tr><td><strong>Cowork</strong></td><td>A visual desktop mode with file access and some Claude Code features (MCP, skills). Friendlier interface but fewer power features.</td><td>File tasks, document creation, visual workflows</td></tr>
+</tbody>
+</table>
+<p style="margin-bottom:0"><strong>This guide teaches Claude Code (terminal)</strong> because it unlocks the full toolkit — skills, hooks, subagents, parallel sessions, and one-shot mode. Everything in this guide works in the terminal. If you already use Cowork, think of Claude Code as the power-user upgrade: same AI, more control.</p>
 </div>
 
 <h4>What to learn</h4>
@@ -208,13 +224,21 @@ footer{padding:40px 0;border-top:1px solid var(--border);text-align:center;color
 
 <div class="practice">
 <h4>Practice — Set up your briefing project</h4>
-<p><strong>Step 1 — Install Claude Code:</strong></p>
+<p><strong>Step 0 — Open your terminal.</strong> This is the text-based app where you'll type commands. You only need to find it once — after that, Claude Code lives here.</p>
+<ul>
+<li><strong>Mac:</strong> Press <code>Cmd + Space</code>, type <strong>Terminal</strong>, hit Enter. (Or find it in Applications → Utilities → Terminal)</li>
+<li><strong>Windows:</strong> Press <code>Win + R</code>, type <strong>cmd</strong>, hit Enter. (Or search "Command Prompt" or "PowerShell" in the Start menu)</li>
+</ul>
+<p>You'll see a blinking cursor waiting for input — that's it, you're in. Every command below gets typed here and confirmed with Enter.</p>
+<p><strong>Step 1 — Install Claude Code.</strong> Paste this into your terminal and hit Enter:</p>
 <pre><code>curl -fsSL https://claude.ai/install.sh | bash
 claude --login</code></pre>
-<p><strong>Step 2 — Create your project and start Claude:</strong></p>
+<p style="font-size:0.88rem;color:var(--text-3)">On Windows, visit <a href="https://claude.ai/download" style="color:var(--accent)">claude.ai/download</a> instead to get the installer.</p>
+<p><strong>Step 2 — Create your project folder and start Claude:</strong></p>
 <pre><code>mkdir -p ~/weekly-briefing
 cd ~/weekly-briefing
 claude</code></pre>
+<p style="font-size:0.88rem;color:var(--text-3)"><code>mkdir</code> creates a folder. <code>cd</code> moves into it. <code>claude</code> launches Claude Code inside that folder.</p>
 <p><strong>Step 3 — Ask Claude to generate sample files.</strong> Paste this prompt:</p>
 <p><em>"Create a folder called raw-notes/ with 8 sample files that simulate a messy work week for someone in tech. Include things like: meeting-notes-monday.txt, slack-highlights.txt, project-alpha-update.txt, random-ideas.txt, design-review-feedback.txt, competitor-research.txt, action-items-scattered.txt, and weekly-goals.txt. Fill each with realistic content."</em></p>
 <p><strong>Step 4 — Verify.</strong> Ask: <em>"How many files did you create? List them all with a one-line description of each."</em></p>
@@ -247,7 +271,9 @@ claude</code></pre>
 
 <div class="practice">
 <h4>Practice — Teach Claude about your briefing project</h4>
-<p><strong>Step 1 — Start Claude</strong> in your project: <code>cd ~/weekly-briefing && claude</code></p>
+<p><strong>Step 1 — Open your terminal</strong> (see Day 1 if you need a reminder) <strong>and start Claude in your project:</strong></p>
+<pre><code>cd ~/weekly-briefing
+claude</code></pre>
 <p><strong>Step 2 — Ask Claude to create your CLAUDE.md:</strong></p>
 <p><em>"Create a CLAUDE.md file for this project. This is a 'Weekly Briefing System' — it takes messy notes from raw-notes/ and turns them into a clean weekly briefing. My rules: always write in plain language (no jargon), use bullet points, bold the project names, keep summaries under 5 items, put the date at the top, and never delete my original notes."</em></p>
 <p><strong>Step 3</strong> — Ask: <em>"Show me what's in the CLAUDE.md."</em></p>
@@ -400,11 +426,12 @@ claude</code></pre>
 
 <div class="practice">
 <h4>Practice — Add live data to your briefing</h4>
-<p><strong>Connect an app</strong> (pick the one you use most):</p>
+<p><strong>Connect an app.</strong> Open your terminal (not inside Claude — exit first with <code>/exit</code> if needed). Pick the app you use most and paste the matching line:</p>
 <pre><code>claude mcp add slack -- npx @anthropic-ai/mcp-server-slack
 claude mcp add notion -- npx @anthropic-ai/mcp-server-notion
 claude mcp add gdrive -- npx @anthropic-ai/mcp-server-gdrive</code></pre>
-<p>Test it, then ask: <em>"Update my /briefing skill to also pull highlights from [your app]. Add a 'Team Highlights' section."</em></p>
+<p style="font-size:0.88rem;color:var(--text-3)">These commands run in your regular terminal, not inside Claude Code. They register a connector that Claude can use in future sessions.</p>
+<p>Now start Claude again (<code>cd ~/weekly-briefing && claude</code>) and ask: <em>"Update my /briefing skill to also pull highlights from [your app]. Add a 'Team Highlights' section."</em></p>
 </div>
 
 <div class="resources">
@@ -449,13 +476,16 @@ claude mcp add gdrive -- npx @anthropic-ai/mcp-server-gdrive</code></pre>
 
 <div class="practice">
 <h4>Practice — Weekly + monthly reports simultaneously</h4>
-<p><strong>Tab 1:</strong></p>
-<pre><code>cd ~/weekly-briefing && claude -n weekly
-# "Run my /briefing skill"</code></pre>
-<p><strong>Tab 2:</strong></p>
-<pre><code>cd ~/weekly-briefing && claude -n monthly
-# "Read all briefings in output/ and archive/. Write a monthly summary."</code></pre>
-<p>Two reports in the time it takes to make one.</p>
+<p><strong>First, open two terminal windows.</strong> On Mac: open Terminal, then press <code>Cmd + N</code> for a second window. On Windows: open two Command Prompt windows from the Start menu.</p>
+<p><strong>Window 1:</strong></p>
+<pre><code>cd ~/weekly-briefing
+claude -n weekly</code></pre>
+<p>Then ask: <em>"Run my /briefing skill"</em></p>
+<p><strong>Window 2:</strong></p>
+<pre><code>cd ~/weekly-briefing
+claude -n monthly</code></pre>
+<p>Then ask: <em>"Read all briefings in output/ and archive/. Write a monthly summary."</em></p>
+<p>Two reports running at the same time — done in the time it takes to make one.</p>
 </div>
 
 <div class="resources">
@@ -478,9 +508,11 @@ claude mcp add gdrive -- npx @anthropic-ai/mcp-server-gdrive</code></pre>
 <div class="day-title">Putting It All Together</div>
 
 <h4>One-shot mode — quick tasks without a full session</h4>
+<p>These commands run in your regular terminal — no need to start a full Claude session. Just paste and hit Enter:</p>
 <pre><code>claude -p "Count briefing files in ~/weekly-briefing/output/"
 claude -p "Read the latest briefing and list just the open items"
 cat notes.txt | claude -p "Summarize this in 3 bullet points"</code></pre>
+<p style="font-size:0.88rem;color:var(--text-3)">The <code>-p</code> flag means "just answer this one thing and exit." The <code>cat ... | claude -p</code> pattern feeds a file's contents to Claude as input.</p>
 
 <h4>Your complete system</h4>
 <table>
