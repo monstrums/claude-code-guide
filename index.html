@@ -1,0 +1,579 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Claude Code Mastery in 10 Days — The 80/20 Guide</title>
+<meta name="description" content="The 80/20 guide to becoming a Claude Code power user. 30 min/day, 10 days. For non-developers in tech.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&family=Inter:wght@400;500;600;700&family=Fraunces:ital,wght@0,700;1,400&display=swap" rel="stylesheet">
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+:root{
+--bg:#fafaf9;--surface:#fff;--border:#e7e5e4;--text:#1c1917;--text-2:#57534e;--text-3:#a8a29e;
+--accent:#c2410c;--accent-light:#fed7aa;--accent-bg:#fff7ed;
+--code-bg:#f5f5f4;--code-border:#d6d3d1;
+--phase1:#c2410c;--phase2:#0369a1;--phase3:#4d7c0f;--phase4:#7e22ce;
+}
+html{scroll-behavior:smooth;font-size:17px}
+body{font-family:'Inter',system-ui,sans-serif;color:var(--text);background:var(--bg);line-height:1.7;-webkit-font-smoothing:antialiased}
+::selection{background:var(--accent-light);color:var(--text)}
+
+/* Layout */
+.container{max-width:720px;margin:0 auto;padding:0 24px}
+header{padding:0;border-bottom:1px solid var(--border)}
+.hero-banner{background:linear-gradient(135deg,#0f172a 0%,#1e1b4b 35%,#1e3a5f 65%,#0f172a 100%);padding:64px 24px 56px;text-align:center;position:relative;overflow:hidden}
+.hero-banner::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse at 30% 50%,rgba(6,182,212,0.15) 0%,transparent 60%),radial-gradient(ellipse at 70% 50%,rgba(139,92,246,0.12) 0%,transparent 60%);pointer-events:none}
+.hero-banner::after{content:'';position:absolute;inset:0;background:url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='0.03'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");pointer-events:none}
+.hero-title-wrap{position:relative;z-index:1;max-width:680px;margin:0 auto}
+.hero-title-main{font-family:'Fraunces',Georgia,serif;font-size:2.8rem;line-height:1.15;letter-spacing:-0.02em;margin-bottom:16px}
+.hero-title-main .t-teal{color:#2dd4bf}.hero-title-main .t-white{color:#f1f5f9}.hero-title-main .t-orange{color:#fb923c}
+.hero-subtitle{color:#94a3b8;font-size:1.05rem;line-height:1.6;max-width:520px;margin:0 auto 24px}
+.hero-tags{display:flex;gap:8px;justify-content:center;flex-wrap:wrap}
+.hero-tag{font-family:'IBM Plex Mono',monospace;font-size:0.7rem;font-weight:500;letter-spacing:0.06em;text-transform:uppercase;padding:5px 12px;border-radius:20px;border:1px solid rgba(255,255,255,0.12);color:#94a3b8;background:rgba(255,255,255,0.04)}
+.header-content{padding:40px 0 40px;max-width:720px;margin:0 auto;padding-left:24px;padding-right:24px}
+header .container{max-width:720px}
+h1{font-family:'Fraunces',Georgia,serif;font-size:2.4rem;line-height:1.2;letter-spacing:-0.02em;margin-bottom:12px}
+.subtitle{font-size:1.1rem;color:var(--text-2);margin-bottom:24px}
+.badge{display:inline-block;font-size:0.75rem;font-weight:600;text-transform:uppercase;letter-spacing:0.08em;padding:4px 10px;border-radius:4px;background:var(--accent-bg);color:var(--accent);border:1px solid var(--accent-light)}
+
+/* Nav */
+nav{position:sticky;top:0;z-index:100;background:rgba(250,250,249,0.92);backdrop-filter:blur(12px);border-bottom:1px solid var(--border);padding:12px 0}
+nav .container{display:flex;gap:6px;overflow-x:auto;scrollbar-width:none;-ms-overflow-style:none;max-width:720px}
+nav .container::-webkit-scrollbar{display:none}
+nav a{white-space:nowrap;font-size:0.78rem;font-weight:500;color:var(--text-3);text-decoration:none;padding:6px 12px;border-radius:6px;transition:all 0.15s}
+nav a:hover{color:var(--text);background:var(--surface)}
+nav a.phase1{color:var(--phase1)}nav a.phase2{color:var(--phase2)}nav a.phase3{color:var(--phase3)}nav a.phase4{color:var(--phase4)}
+
+/* Main content */
+main{padding:48px 0 120px}
+.section-intro{padding:40px 0 24px}
+h2{font-family:'Fraunces',Georgia,serif;font-size:1.6rem;letter-spacing:-0.01em;margin-bottom:8px}
+h3{font-size:1.05rem;font-weight:600;margin:28px 0 12px;color:var(--text)}
+h4{font-size:0.85rem;font-weight:600;text-transform:uppercase;letter-spacing:0.06em;color:var(--text-3);margin:24px 0 8px}
+p{margin-bottom:16px;color:var(--text-2)}
+strong{color:var(--text);font-weight:600}
+em{font-family:'Fraunces',Georgia,serif;font-style:italic;color:var(--text)}
+
+/* Phase headers */
+.phase-header{margin:56px 0 8px;padding:16px 0;border-top:3px solid var(--border)}
+.phase-header.p1{border-color:var(--phase1)}.phase-header.p2{border-color:var(--phase2)}.phase-header.p3{border-color:var(--phase3)}.phase-header.p4{border-color:var(--phase4)}
+.phase-label{font-size:0.72rem;font-weight:600;text-transform:uppercase;letter-spacing:0.1em;margin-bottom:4px}
+.phase-header.p1 .phase-label{color:var(--phase1)}.phase-header.p2 .phase-label{color:var(--phase2)}.phase-header.p3 .phase-label{color:var(--phase3)}.phase-header.p4 .phase-label{color:var(--phase4)}
+
+/* Day cards */
+.day-card{background:var(--surface);border:1px solid var(--border);border-radius:12px;padding:32px;margin:24px 0}
+.day-num{font-family:'IBM Plex Mono',monospace;font-size:0.72rem;font-weight:600;text-transform:uppercase;letter-spacing:0.1em;margin-bottom:8px}
+.day-card.p1 .day-num{color:var(--phase1)}.day-card.p2 .day-num{color:var(--phase2)}.day-card.p3 .day-num{color:var(--phase3)}.day-card.p4 .day-num{color:var(--phase4)}
+.day-title{font-family:'Fraunces',Georgia,serif;font-size:1.3rem;margin-bottom:16px}
+.concept-box{background:var(--bg);border-left:3px solid var(--border);padding:16px 20px;margin:16px 0;border-radius:0 8px 8px 0}
+.concept-box p{margin-bottom:0;font-size:0.95rem}
+
+/* Lists */
+ul,ol{margin:12px 0 16px 20px;color:var(--text-2)}
+li{margin-bottom:8px}
+li strong{color:var(--text)}
+
+/* Code blocks */
+pre{background:var(--code-bg);border:1px solid var(--code-border);border-radius:8px;padding:16px 20px;overflow-x:auto;margin:16px 0;font-family:'IBM Plex Mono',monospace;font-size:0.82rem;line-height:1.6;color:var(--text)}
+code{font-family:'IBM Plex Mono',monospace;font-size:0.85em;background:var(--code-bg);padding:2px 6px;border-radius:4px}
+pre code{background:none;padding:0}
+
+/* Tables */
+table{width:100%;border-collapse:collapse;margin:16px 0;font-size:0.9rem}
+th{text-align:left;font-weight:600;padding:10px 12px;border-bottom:2px solid var(--border);color:var(--text);font-size:0.78rem;text-transform:uppercase;letter-spacing:0.05em}
+td{padding:10px 12px;border-bottom:1px solid var(--border);color:var(--text-2)}
+tr:last-child td{border-bottom:none}
+
+/* Resources */
+.resources{margin:24px 0 0;padding:20px;background:var(--bg);border-radius:8px}
+.resources h4{margin:0 0 12px;color:var(--text-3)}
+.resources ol{margin:0 0 0 16px}
+.resources li{margin-bottom:6px;font-size:0.9rem}
+.resources a{color:var(--accent);text-decoration:none;font-weight:500}
+.resources a:hover{text-decoration:underline}
+
+/* Practice blocks */
+.practice{background:var(--accent-bg);border:1px solid var(--accent-light);border-radius:8px;padding:20px 24px;margin:20px 0}
+.practice h4{color:var(--accent);margin:0 0 12px}
+.practice p{font-size:0.93rem}
+.practice pre{background:#fff;border-color:var(--accent-light)}
+
+/* Callout */
+.callout{border:1px solid var(--border);border-radius:8px;padding:20px 24px;margin:24px 0;background:var(--surface)}
+.callout p{margin-bottom:0;font-size:0.93rem}
+
+/* Project overview table */
+.project-table{margin:24px 0}
+.project-table td:first-child{font-family:'IBM Plex Mono',monospace;font-weight:600;font-size:0.85rem;white-space:nowrap;width:40px}
+
+/* Quick ref */
+.quick-ref{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin:24px 0}
+.quick-ref .card{background:var(--surface);border:1px solid var(--border);border-radius:8px;padding:20px}
+.quick-ref h4{margin:0 0 12px}
+@media(max-width:600px){.quick-ref{grid-template-columns:1fr}h1{font-size:1.8rem}nav a{font-size:0.72rem;padding:4px 8px}.day-card{padding:24px 20px}.hero-banner{padding:48px 20px 40px}.hero-title-main{font-size:1.9rem}}
+
+/* Express track */
+.express{background:var(--surface);border:2px solid var(--accent);border-radius:12px;padding:28px;margin:32px 0}
+.express h3{margin-top:0;color:var(--accent)}
+
+/* Footer */
+footer{padding:40px 0;border-top:1px solid var(--border);text-align:center;color:var(--text-3);font-size:0.82rem}
+
+/* Smooth scroll target offset */
+[id]{scroll-margin-top:70px}
+</style>
+</head>
+<body>
+
+<header>
+<div class="hero-banner">
+<div class="hero-title-wrap">
+<div class="hero-title-main"><span class="t-teal">Claude</span> <span class="t-white">Code Mastery</span><br><span class="t-white">in 10 Days —</span> <span class="t-orange">The 80/20</span> <span class="t-white">Guide</span></div>
+<p class="hero-subtitle">The guide to becoming a Claude Code power user. 30 min/day, 10 days. Built for PMs, designers, ops, and anyone in tech who isn't a developer.</p>
+<div class="hero-tags"><span class="hero-tag">30 min / day</span><span class="hero-tag">Non-developers</span><span class="hero-tag">Free course</span><span class="hero-tag">Hands-on project</span></div>
+</div>
+</div>
+</header>
+
+<nav>
+<div class="container">
+<a href="#project" class="phase1">Project</a>
+<a href="#day1" class="phase1">Day 1</a>
+<a href="#day2" class="phase1">Day 2</a>
+<a href="#day3" class="phase1">Day 3</a>
+<a href="#day4" class="phase2">Day 4</a>
+<a href="#day5" class="phase2">Day 5</a>
+<a href="#day6" class="phase2">Day 6</a>
+<a href="#day7" class="phase3">Day 7</a>
+<a href="#day8" class="phase3">Day 8</a>
+<a href="#day9" class="phase3">Day 9</a>
+<a href="#day10" class="phase4">Day 10</a>
+<a href="#reference">Reference</a>
+</div>
+</nav>
+
+<main>
+<div class="container">
+
+<div class="callout">
+<p><strong>The 80/20 insight:</strong> Claude Code mastery comes down to 5 things — context management, CLAUDE.md, permission modes, the explore-plan-act-verify loop, and delegation via subagents. Everything else is bonus.</p>
+</div>
+
+<p>Each day has <strong>one core concept</strong> (~20 min learning) + <strong>one hands-on exercise</strong> (~10 min practice). Every exercise builds on the previous one. By Day 10 you'll be getting more out of Claude Code than most engineers.</p>
+
+<!-- PROJECT OVERVIEW -->
+<div id="project" class="section-intro">
+<h2>🏗️ The Course Project</h2>
+<p>Every exercise builds toward one real deliverable: <strong>a system where you type one command and get a polished weekly briefing</strong> — pulling from your files, notes, and your actual work apps.</p>
+</div>
+
+<table class="project-table">
+<thead><tr><th>Day</th><th>What you add</th><th>Result</th></tr></thead>
+<tbody>
+<tr><td>1</td><td>Set up project folder with sample files</td><td>Messy folder of notes, like real life</td></tr>
+<tr><td>2</td><td>Write a CLAUDE.md with your preferences</td><td>Claude knows your formatting rules</td></tr>
+<tr><td>3</td><td>Organize files using permission modes</td><td>Clean, structured project folder</td></tr>
+<tr><td>4</td><td>Generate first briefing via the power loop</td><td>Your first weekly briefing</td></tr>
+<tr><td>5</td><td>Create a <code>/briefing</code> skill</td><td>One-command generation</td></tr>
+<tr><td>6</td><td>Use subagents for parallel sections</td><td>Faster, richer briefings</td></tr>
+<tr><td>7</td><td>Connect Slack or Notion via MCP</td><td>Live data from your apps</td></tr>
+<tr><td>8</td><td>Add auto-archive hook</td><td>Automatic backups</td></tr>
+<tr><td>9</td><td>Run parallel sessions</td><td>Multiple reports at once</td></tr>
+<tr><td>10</td><td>Wire it all together</td><td>Type <code>/briefing</code> → done</td></tr>
+</tbody>
+</table>
+
+<!-- PHASE 1 -->
+<div class="phase-header p1" id="day1">
+<div class="phase-label">Phase 1 — Foundations</div>
+<h2>Days 1–3</h2>
+</div>
+
+<div class="day-card p1">
+<div class="day-num">Day 1</div>
+<div class="day-title">The Mental Model: Claude Code is Not a Chatbot</div>
+
+<div class="concept-box">
+<p>Claude Code is an <em>autonomous agent</em> that lives in your terminal. It can read files, write files, run commands, search the web, and connect to apps. You give it a task; it figures out which tools to use.</p>
+</div>
+
+<h4>What to learn</h4>
+<ul>
+<li>Claude Code runs in a loop: <strong>read context → reason → use a tool → repeat</strong></li>
+<li>Every file it reads, every message you send <strong>consumes context tokens</strong> (Claude's short-term memory)</li>
+<li>When memory fills up, Claude gets less effective — this constraint shapes everything</li>
+<li>Use <code>/compact</code> to free up memory, <code>/clear</code> to start fresh between tasks</li>
+</ul>
+
+<div class="practice">
+<h4>Practice — Set up your briefing project</h4>
+<p><strong>Step 1 — Install Claude Code:</strong></p>
+<pre><code>curl -fsSL https://claude.ai/install.sh | bash
+claude --login</code></pre>
+<p><strong>Step 2 — Create your project and start Claude:</strong></p>
+<pre><code>mkdir -p ~/weekly-briefing
+cd ~/weekly-briefing
+claude</code></pre>
+<p><strong>Step 3 — Ask Claude to generate sample files.</strong> Paste this prompt:</p>
+<p><em>"Create a folder called raw-notes/ with 8 sample files that simulate a messy work week for someone in tech. Include things like: meeting-notes-monday.txt, slack-highlights.txt, project-alpha-update.txt, random-ideas.txt, design-review-feedback.txt, competitor-research.txt, action-items-scattered.txt, and weekly-goals.txt. Fill each with realistic content."</em></p>
+<p><strong>Step 4 — Verify.</strong> Ask: <em>"How many files did you create? List them all with a one-line description of each."</em></p>
+</div>
+
+<div class="resources">
+<h4>Resources</h4>
+<ol>
+<li>🎙️ <a href="https://every.to/podcast/how-to-use-claude-code-like-the-people-who-built-it">How to Use Claude Code Like the People Who Built It</a> — THE episode to start with</li>
+<li>🎓 <a href="https://anthropic.skilljar.com/claude-code-in-action">Claude Code in Action</a> — Anthropic's official free course</li>
+</ol>
+</div>
+</div>
+
+<div class="day-card p1" id="day2">
+<div class="day-num">Day 2</div>
+<div class="day-title">CLAUDE.md: Your Project's Memory</div>
+
+<div class="concept-box">
+<p>CLAUDE.md is a plain text file Claude reads at the start of <em>every</em> session. It tells Claude your rules and preferences. Think of it as a briefing doc for a new colleague.</p>
+</div>
+
+<h4>What to learn</h4>
+<ul>
+<li>Run <code>/init</code> and Claude auto-generates a CLAUDE.md by scanning your project</li>
+<li>Keep it <strong>under 200 lines</strong> — too long and Claude ignores parts</li>
+<li>Write rules in <strong>plain English</strong> — this isn't code, just instructions</li>
+<li>Claude also saves things it learns automatically between sessions</li>
+</ul>
+
+<div class="practice">
+<h4>Practice — Teach Claude about your briefing project</h4>
+<p><strong>Step 1 — Start Claude</strong> in your project: <code>cd ~/weekly-briefing && claude</code></p>
+<p><strong>Step 2 — Ask Claude to create your CLAUDE.md:</strong></p>
+<p><em>"Create a CLAUDE.md file for this project. This is a 'Weekly Briefing System' — it takes messy notes from raw-notes/ and turns them into a clean weekly briefing. My rules: always write in plain language (no jargon), use bullet points, bold the project names, keep summaries under 5 items, put the date at the top, and never delete my original notes."</em></p>
+<p><strong>Step 3</strong> — Ask: <em>"Show me what's in the CLAUDE.md."</em></p>
+<p><strong>Step 4 — Test.</strong> Quit (<code>/exit</code>), relaunch <code>claude</code>, ask: <em>"What are my rules?"</em> — Claude should know without reminding.</p>
+</div>
+
+<div class="resources">
+<h4>Resources</h4>
+<ol>
+<li>🎙️ <a href="https://podcasts.apple.com/us/podcast/claude-code-clearly-explained-and-how-to-use-it/id1593424985?i=1000745796041">Claude Code Clearly Explained</a> — Beginner-friendly crash course</li>
+<li>📖 <a href="https://mindwiredai.com/2026/03/25/claude-code-creator-workflow-claudemd/">Creator's 100-Line Workflow</a> — How the Claude Code creator uses CLAUDE.md</li>
+</ol>
+</div>
+</div>
+
+<div class="day-card p1" id="day3">
+<div class="day-num">Day 3</div>
+<div class="day-title">Permission Modes & Keyboard Flow</div>
+
+<div class="concept-box">
+<p>Permission modes control how much autonomy Claude gets. <strong>Default</strong> = asks permission. <strong>Accept Edits</strong> = just does it. <strong>Plan Mode</strong> = thinks but never touches. Switch with <code>Shift+Tab</code>.</p>
+</div>
+
+<table>
+<thead><tr><th>Mode</th><th>Behavior</th><th>When to use</th></tr></thead>
+<tbody>
+<tr><td><strong>Default</strong></td><td>Asks before every action</td><td>Learning, sensitive tasks</td></tr>
+<tr><td><strong>Accept Edits</strong></td><td>Makes changes without asking</td><td>Speed, trust</td></tr>
+<tr><td><strong>Plan Mode</strong></td><td>Reads and thinks, never touches</td><td>Advice before committing</td></tr>
+</tbody>
+</table>
+
+<div class="practice">
+<h4>Practice — Organize your notes using all three modes</h4>
+<ol>
+<li><strong>Plan Mode:</strong> <code>Shift+Tab</code> → <em>"Look at raw-notes/. How would you categorize them? Suggest a folder structure — don't move anything."</em></li>
+<li><strong>Accept Edits:</strong> <code>Shift+Tab</code> → <em>"Create organized/ with subfolders. Copy (don't move) files into the right places."</em></li>
+<li><strong>Default to verify:</strong> <code>Shift+Tab</code> → <em>"Show folder structure of organized/ and confirm nothing in raw-notes/ was deleted."</em></li>
+</ol>
+</div>
+
+<div class="resources">
+<h4>Resources</h4>
+<ol>
+<li>🎙️ <a href="https://podcasts.apple.com/us/podcast/160-how-to-get-started-with-claude-code-no-coding-experience/id1825779580?i=1000755032413">Claude Code for Non-Coders</a> — Perfect walkthrough for this audience</li>
+<li>📖 <a href="https://code.claude.com/docs/en/permission-modes">Permission Modes docs</a> — Official reference</li>
+</ol>
+</div>
+</div>
+
+<!-- PHASE 2 -->
+<div class="phase-header p2" id="day4">
+<div class="phase-label">Phase 2 — The Power Workflow</div>
+<h2>Days 4–6</h2>
+</div>
+
+<div class="day-card p2">
+<div class="day-num">Day 4</div>
+<div class="day-title">The Explore-Plan-Act-Verify Loop</div>
+
+<div class="concept-box">
+<p>The #1 pattern. Break any task into 4 phases: <strong>Explore</strong> → <strong>Plan</strong> → <strong>Act</strong> → <strong>Verify</strong>. Results are dramatically better than one big vague prompt.</p>
+</div>
+
+<div class="callout">
+<p><strong>The golden rule:</strong> Always give Claude a way to verify its own work — have it list what changed, compare before/after, or read back what it wrote.</p>
+</div>
+
+<div class="practice">
+<h4>Practice — Generate your first weekly briefing</h4>
+<ol>
+<li><strong>Explore:</strong> Plan Mode → <em>"Read organized/ files. What were the main topics? Decisions? What's open?"</em></li>
+<li><strong>Plan:</strong> <em>"Write a briefing outline: Key Highlights, Decisions, Open Items, Priorities. Don't write it yet."</em></li>
+<li><strong>Act:</strong> Accept Edits → <em>"Create the briefing as output/weekly-briefing-2026-04-08.md. Follow my CLAUDE.md rules."</em></li>
+<li><strong>Verify:</strong> <em>"Read back the briefing. Under 1 page? Project names bolded? Date at top? Follows all rules?"</em></li>
+</ol>
+</div>
+
+<div class="resources">
+<h4>Resources</h4>
+<ol>
+<li>🎙️ <a href="https://open.spotify.com/episode/4D8G4ZhgmFrMDNYrrQOTbe">Claude Code Can Be Your Second Brain</a> — Advanced workflow patterns</li>
+<li>📖 <a href="https://code.claude.com/docs/en/best-practices">Best Practices</a> — Anthropic's official guide (very high-value)</li>
+</ol>
+</div>
+</div>
+
+<div class="day-card p2" id="day5">
+<div class="day-num">Day 5</div>
+<div class="day-title">Skills: One-Command Workflows</div>
+
+<div class="concept-box">
+<p>Skills are saved recipes — plain text instructions Claude follows when you trigger a slash command. Write once, use forever. <code>/briefing</code> now does what took you 10 minutes on Day 4.</p>
+</div>
+
+<div class="practice">
+<h4>Practice — Turn Day 4 into a one-command skill</h4>
+<p>Ask Claude: <em>"Create a skill called 'briefing' at .claude/skills/briefing/SKILL.md. It should: read organized/, identify highlights/decisions/open items/priorities, write a briefing to output/ with today's date, verify against CLAUDE.md rules. Include $ARGUMENTS so I can focus on a specific topic."</em></p>
+<p>Test it: type <code>/briefing</code>. Then try <code>/briefing design</code> to focus on one area.</p>
+</div>
+
+<div class="resources">
+<h4>Resources</h4>
+<ol>
+<li>🎙️ <a href="https://aipractitioner.substack.com/p/podcast-building-claude-skills-a">Building Claude Skills</a> — Deep dive with audio</li>
+<li>📖 <a href="https://www.morphllm.com/claude-code-extensions">MCP, Skills, Agents & Hooks Guide</a> — When to use which</li>
+</ol>
+</div>
+</div>
+
+<div class="day-card p2" id="day6">
+<div class="day-num">Day 6</div>
+<div class="day-title">Subagents: Get More Done Without Losing Your Thread</div>
+
+<div class="concept-box">
+<p>A subagent is a separate Claude that works in isolation, then hands back just the result. Like sending three assistants to each research one topic — your main Claude's memory stays clean.</p>
+</div>
+
+<div class="practice">
+<h4>Practice — Richer briefing with parallel subagents</h4>
+<ol>
+<li>Create a custom subagent: <em>"Create .claude/agents/briefing-section.md for producing concise briefing sections."</em></li>
+<li>Use it: <em>"Use a subagent for meeting files → 'Key Meetings' section. Another for project updates → 'Project Status'. Combine into one briefing."</em></li>
+<li>Compare: <em>"Compare this to the Day 4 briefing. Which is more detailed?"</em></li>
+</ol>
+</div>
+
+<div class="resources">
+<h4>Resources</h4>
+<ol>
+<li>📖 <a href="https://claudefa.st/blog/guide/agents/sub-agent-best-practices">Sub-Agent Patterns</a> — When to go parallel vs sequential</li>
+<li>📖 <a href="https://alexop.dev/posts/understanding-claude-code-full-stack/">Claude Code Full Stack</a> — How all the pieces fit together</li>
+</ol>
+</div>
+</div>
+
+<!-- PHASE 3 -->
+<div class="phase-header p3" id="day7">
+<div class="phase-label">Phase 3 — Extensions & Scaling</div>
+<h2>Days 7–9</h2>
+</div>
+
+<div class="day-card p3">
+<div class="day-num">Day 7</div>
+<div class="day-title">MCP: Connecting Claude to Your Apps</div>
+
+<div class="concept-box">
+<p>MCP lets Claude talk to Slack, Notion, Google Drive, and hundreds more. One command to connect. Then Claude can read and write to your apps during any session.</p>
+</div>
+
+<div class="practice">
+<h4>Practice — Add live data to your briefing</h4>
+<p><strong>Connect an app</strong> (pick the one you use most):</p>
+<pre><code>claude mcp add slack -- npx @anthropic-ai/mcp-server-slack
+claude mcp add notion -- npx @anthropic-ai/mcp-server-notion
+claude mcp add gdrive -- npx @anthropic-ai/mcp-server-gdrive</code></pre>
+<p>Test it, then ask: <em>"Update my /briefing skill to also pull highlights from [your app]. Add a 'Team Highlights' section."</em></p>
+</div>
+
+<div class="resources">
+<h4>Resources</h4>
+<ol>
+<li>🎙️ <a href="https://podcasts.apple.com/us/podcast/the-claude-code-tutorial-for-ai-pms-why-you-need-to-use-it-how/id1763555775?i=1000730130004">Claude Code for AI PMs</a> — MCP and workflow automation</li>
+<li>📖 <a href="https://dev.to/bruce_he/mcp-vs-skills-vs-hooks-in-claude-code-which-extension-do-you-need-3b8i">MCP vs Skills vs Hooks</a> — Decision framework</li>
+</ol>
+</div>
+</div>
+
+<div class="day-card p3" id="day8">
+<div class="day-num">Day 8</div>
+<div class="day-title">Hooks: "Always Do This" Rules</div>
+
+<div class="concept-box">
+<p>Hooks are automatic actions that <em>always</em> fire — no AI involved, 100% reliable. Skills are recipes you trigger. Hooks are things that always happen.</p>
+</div>
+
+<div class="practice">
+<h4>Practice — Auto-archiving for your briefings</h4>
+<p>Ask Claude: <em>"Set up two hooks in .claude/settings.json. First: every time you create or edit a file in output/, copy it to archive/ with a timestamp. Second: show a Mac notification when you finish any task."</em></p>
+<p>Run <code>/briefing</code> to test. Check <code>archive/</code> for the timestamped copy.</p>
+</div>
+
+<div class="resources">
+<h4>Resources</h4>
+<ol>
+<li>📖 <a href="https://genaiunplugged.substack.com/p/claude-code-skills-commands-hooks-agents">Skills, Hooks & Agents Guide</a> — Practical examples</li>
+<li>📖 <a href="https://code.claude.com/docs/en/hooks-guide">Hooks Guide</a> — Official reference</li>
+</ol>
+</div>
+</div>
+
+<div class="day-card p3" id="day9">
+<div class="day-num">Day 9</div>
+<div class="day-title">Running Multiple Claudes at Once</div>
+
+<div class="concept-box">
+<p>Run several Claude sessions in parallel — each on a different task. Two terminal tabs, two reports, same time.</p>
+</div>
+
+<div class="practice">
+<h4>Practice — Weekly + monthly reports simultaneously</h4>
+<p><strong>Tab 1:</strong></p>
+<pre><code>cd ~/weekly-briefing && claude -n weekly
+# "Run my /briefing skill"</code></pre>
+<p><strong>Tab 2:</strong></p>
+<pre><code>cd ~/weekly-briefing && claude -n monthly
+# "Read all briefings in output/ and archive/. Write a monthly summary."</code></pre>
+<p>Two reports in the time it takes to make one.</p>
+</div>
+
+<div class="resources">
+<h4>Resources</h4>
+<ol>
+<li>📖 <a href="https://docs.agentinterviews.com/blog/parallel-ai-coding-with-gitworktrees/">Parallel Work with Worktrees</a> — Step-by-step tutorial</li>
+<li>📖 <a href="https://claudelab.net/en/articles/claude-code/claude-code-parallel-development-mastery">Mastering Parallel Agents</a> — Advanced patterns</li>
+</ol>
+</div>
+</div>
+
+<!-- PHASE 4 -->
+<div class="phase-header p4" id="day10">
+<div class="phase-label">Phase 4 — Mastery</div>
+<h2>Day 10</h2>
+</div>
+
+<div class="day-card p4">
+<div class="day-num">Day 10</div>
+<div class="day-title">Putting It All Together</div>
+
+<h4>One-shot mode — quick tasks without a full session</h4>
+<pre><code>claude -p "Count briefing files in ~/weekly-briefing/output/"
+claude -p "Read the latest briefing and list just the open items"
+cat notes.txt | claude -p "Summarize this in 3 bullet points"</code></pre>
+
+<h4>Your complete system</h4>
+<table>
+<thead><tr><th>What it does</th><th>Tool</th><th>Day</th></tr></thead>
+<tbody>
+<tr><td>Remembers your rules</td><td>CLAUDE.md</td><td>2</td></tr>
+<tr><td>Controls autonomy</td><td>Permission modes</td><td>3</td></tr>
+<tr><td>Structures tasks</td><td>Explore-Plan-Act-Verify</td><td>4</td></tr>
+<tr><td>One-command workflows</td><td>Skills</td><td>5</td></tr>
+<tr><td>Clean delegation</td><td>Subagents</td><td>6</td></tr>
+<tr><td>App connections</td><td>MCP</td><td>7</td></tr>
+<tr><td>Automatic actions</td><td>Hooks</td><td>8</td></tr>
+<tr><td>Parallel work</td><td>Multiple sessions</td><td>9</td></tr>
+</tbody>
+</table>
+
+<div class="practice">
+<h4>Practice — The full system test</h4>
+<ol>
+<li>Claude loads your CLAUDE.md automatically ✓</li>
+<li>Plan Mode → review new notes → plan how to incorporate ✓</li>
+<li>Accept Edits → execute ✓</li>
+<li><code>/briefing</code> generates report from files + apps ✓</li>
+<li>Hooks auto-archive and notify ✓</li>
+<li>Open second tab for monthly summary in parallel ✓</li>
+</ol>
+<p><strong>You now have a personal briefing system that saves hours every week.</strong></p>
+</div>
+
+<div class="resources">
+<h4>Resources</h4>
+<ol>
+<li>🎙️ <a href="https://podcasts.apple.com/fj/podcast/full-tutorial-build-an-ai-co-pilot-for-your-life/id1736359687?i=1000725377892">Build an AI Co-Pilot for Your Life</a> — Capstone episode</li>
+<li>📖 <a href="https://github.com/FlorianBruniaux/claude-code-ultimate-guide">Claude Code Ultimate Guide</a> — Templates, quizzes, cheatsheet</li>
+</ol>
+</div>
+</div>
+
+<!-- REFERENCE -->
+<div class="phase-header p1" id="reference">
+<div class="phase-label">Quick Reference</div>
+<h2>Cheat Sheet</h2>
+</div>
+
+<div class="quick-ref">
+<div class="card">
+<h4>Shortcuts</h4>
+<table>
+<tbody>
+<tr><td><code>Shift+Tab</code></td><td>Switch modes</td></tr>
+<tr><td><code>Esc</code></td><td>Stop Claude</td></tr>
+<tr><td><code>Esc Esc</code></td><td>Undo / rewind</td></tr>
+<tr><td><code>Ctrl+G</code></td><td>Edit in text editor</td></tr>
+<tr><td><code>/compact</code></td><td>Free memory</td></tr>
+<tr><td><code>/clear</code></td><td>Start fresh</td></tr>
+<tr><td><code>/exit</code></td><td>Quit</td></tr>
+</tbody>
+</table>
+</div>
+<div class="card">
+<h4>Extensions</h4>
+<table>
+<tbody>
+<tr><td><strong>CLAUDE.md</strong></td><td>Persistent memory</td></tr>
+<tr><td><strong>Skills</strong></td><td>One-command workflows</td></tr>
+<tr><td><strong>MCP</strong></td><td>App connections</td></tr>
+<tr><td><strong>Hooks</strong></td><td>Automatic actions</td></tr>
+<tr><td><strong>Subagents</strong></td><td>Clean delegation</td></tr>
+<tr><td><strong>Parallel</strong></td><td>Simultaneous work</td></tr>
+</tbody>
+</table>
+</div>
+</div>
+
+<div class="express">
+<h3>⚡ 3-Day Express Track</h3>
+<p>Can't do 10 days? Do these three:</p>
+<ul>
+<li><strong>Day 2</strong> (CLAUDE.md) — highest ROI single feature</li>
+<li><strong>Day 4</strong> (Explore-Plan-Act-Verify) — the workflow that changes everything</li>
+<li><strong>Day 6</strong> (Subagents) — the scaling unlock</li>
+</ul>
+<p style="margin-top:12px;margin-bottom:0"><strong>80% of the value in 30% of the time.</strong></p>
+</div>
+
+</div>
+</main>
+
+<footer>
+<div class="container">
+<p>April 2026 · Created by Brais @ Monstrums</p>
+</div>
+</footer>
+
+</body>
+</html>
